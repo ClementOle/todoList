@@ -2,6 +2,8 @@ package com.olewski.todo.repository;
 
 import com.olewski.todo.model.Task;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TaskRepository extends CrudRepository<Integer, Task> {
+@Repository
+public interface TaskRepository extends CrudRepository<Task, Integer> {
 }
