@@ -26,6 +26,6 @@ public class TaskController {
 
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable int id) {
-		taskRepository.delete(taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No task have this Id")));
+		taskRepository.delete(taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No task have this Id :" + id)));
 	}
 }
