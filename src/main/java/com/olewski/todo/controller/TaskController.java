@@ -19,6 +19,11 @@ public class TaskController {
 		return taskRepository.findAll();
 	}
 
+	@GetMapping("{id}")
+	public Task getById(@PathVariable int id) {
+		return taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No task have this id : " + id));
+	}
+
 	@PostMapping
 	public Task post(@Valid @RequestBody Task task) {
 		return taskRepository.save(task);
@@ -26,6 +31,14 @@ public class TaskController {
 
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable int id) {
-		taskRepository.delete(taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No task have this Id :" + id)));
+		taskRepository.delete(taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No task have this Id : " + id)));
+	}
+
+	@PutMapping
+	public Task put(@Valid @RequestBody Task task) {
+		Task taskTrouver = taskRepository.findById(task.getId()).orElseThrow(() -> new EntityNotFoundException("No task found with this Id : " + task.getId()));
+		taskTrouver.setText(task.getText());
+		taskTrouver.setIsDone(task.getIsDone());
+		return taskRepository.save(taskTrouver);
 	}
 }
